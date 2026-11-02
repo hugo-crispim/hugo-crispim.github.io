@@ -25,3 +25,8 @@
 @media print{.hero-scope{font-size:9px}.additional-results{break-inside:avoid;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
 
 @media(max-width:360px){.hero-lead{font-size:21px}}
+
+/* A single colleague excerpt replaces the previous first-person note. */
+.recommendation{margin:28px 0 0;padding:20px 24px;border-left:2px solid var(--blue);background:#eef3fa}.recommendation blockquote{font-family:var(--heading);font-size:18px;font-weight:500;line-height:1.65;letter-spacing:-.25px;color:#274863;margin:0 0 15px}.recommendation figcaption{display:flex;align-items:center;justify-content:space-between;gap:20px;font-size:10px;line-height:1.8;color:#637b94}.recommendation figcaption strong{display:block;color:var(--text);font-size:11px;font-weight:700}.recommendation-context{display:block}.recommendation figcaption a{color:var(--blue);font-size:10px;white-space:nowrap;text-decoration:none}.recommendation figcaption a:hover{text-decoration:underline}
+@media(max-width:540px){.recommendation{padding:18px;margin-top:25px}.recommendation blockquote{font-size:16px;line-height:1.75}.recommendation figcaption{flex-wrap:wrap;gap:12px}.recommendation figcaption a{font-size:10px}}
+@media print{.recommendation{break-inside:avoid}}
