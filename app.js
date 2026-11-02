@@ -2,7 +2,7 @@ const roles = {
   socialbakers: {
     date: 'JUN 2014 — JUN 2018', title: 'Marketing Director', company: 'Socialbakers',
     description: 'Drove global demand, leads and product sales for a B2B SaaS marketing platform, now Emplifi. Owned digital marketing, paid acquisition and demand generation.',
-    points: ['Increased product trials by 285%; MQLs contributed 75% of pipeline.', 'Grew online sales by 250% through Google Ads, with 400% ROI.', 'Led promotion for Engage Prague, generating $1.92M in event sales.']
+    points: ['Increased product trials by 285%; MQLs contributed 75% of pipeline.', 'Grew online sales by 250% through Google Ads, with 400% ROI.', 'Led promotion for Engage Prague, an event generating $1.92M in sales.']
   },
   codewise: {
     date: 'JUL 2018 — JAN 2020', title: 'GTM Product Marketing Lead', company: 'Codewise',
@@ -25,8 +25,8 @@ const roles = {
     points: ['Launched campaigns for three new products, delivering 1.5M SOL in new TVL ($230M).', 'Drove $38M in staked SOL from a $150K advertising budget.', 'Built an institution-focused website and secured partnerships with Blockworks, Messari and Flipside.']
   },
   gen: {
-    date: 'OCT 2025 — AUG 2026', title: 'Sr. Product Marketing Manager (IC)', company: 'Gen Digital',
-    description: 'Owned mobile product marketing and growth initiatives for Norton and Avast apps, connecting acquisition, adoption and retention with product value.',
+    date: 'OCT 2025 — AUG 2026', title: 'Senior Product Marketing Manager (IC)', company: 'Gen Digital',
+    description: 'Led mobile product marketing and growth initiatives for Norton and Avast apps, connecting positioning, in-app messaging and feature launches with acquisition, adoption and retention.',
     points: ['Launched Project Momentum, adding $24M in net revenue.', 'Led integration of AI-personalized customer journeys, adding $5.4M in net revenue.', 'Shaped in-app messaging and took features including Protection Score to market.']
   }
 };
