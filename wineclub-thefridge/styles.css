@@ -27,3 +27,16 @@
 
 .direction{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.3;display:inline-block;vertical-align:middle;flex-shrink:0}.text-link .direction,.contact-link .direction{width:22px;height:22px}.comparison-line .direction{width:23px;height:23px}.mono-note .direction,.figure-caption .direction{width:12px;height:12px}.mobile-nav .direction{width:24px;height:24px}.site-footer .direction{width:12px;height:12px}
 @media(max-width:600px){.hero-intro{display:block;font-size:12px;line-height:1.85}.hero-intro .text-link{display:inline-flex;margin-top:16px;font-size:10px}.editorial-copy>p:not(.lead),.rituals p,.design-notes p,.business-rows p,.partner-panel>div>p:not(.eyebrow){font-size:13px}.brief-list dd{font-size:12px}.layout-grid>div:first-child>p{font-size:13px}.zone-note{font-size:12px!important}.menu-toggle{width:44px;height:44px;padding:11px}.menu-toggle span{width:20px}.small-note{font-size:11px}}
+
+/* Five concise partnership asks, followed by the detailed site and design briefs. */
+.partnership-opportunities{border-top:1px solid #aeb8a0}
+.partnership-opportunity{display:grid;grid-template-columns:1.05fr 1.7fr auto;gap:30px;align-items:start;padding:28px 0;border-bottom:1px solid #b5bea5;scroll-margin-top:100px}
+.partnership-opportunity h3{font-family:var(--serif);font-size:32px;line-height:1.08;letter-spacing:-.02em}
+.partnership-opportunity p{font-size:12px;line-height:1.9;color:#4e5b49;max-width:550px}
+.partnership-opportunity .text-link{margin:0;white-space:nowrap;font-size:10px;gap:15px;min-height:44px;align-self:center}
+.partnership-location-note{font-size:11px;line-height:1.9;color:#4e5b49;margin:26px 0 0;padding-left:18px;border-left:2px solid var(--wine);max-width:900px}
+.partnership-location-note strong{color:var(--ink);font-weight:700}
+.partnership-brief-label{font-size:8px;letter-spacing:.1em;margin-top:39px!important;margin-bottom:3px!important}
+@media(max-width:1100px){.partnership-opportunity{grid-template-columns:1fr 1.55fr auto;gap:23px}.partnership-opportunity h3{font-size:29px}.partnership-opportunity .text-link{font-size:9px;gap:10px}}
+@media(max-width:900px){.partnership-opportunity{grid-template-columns:1fr 1.5fr;gap:13px 25px;padding-block:24px}.partnership-opportunity .text-link{grid-column:2;justify-self:start;align-self:start}.partnership-opportunity h3{grid-row:1/3}.partnership-opportunity p{font-size:12px}}
+@media(max-width:600px){.partnership-opportunity{grid-template-columns:1fr;gap:13px;padding-block:25px}.partnership-opportunity h3{grid-row:auto;font-size:32px}.partnership-opportunity p{font-size:13px;line-height:1.85}.partnership-opportunity .text-link{grid-column:1;font-size:10px;gap:22px;min-height:44px}.partnership-location-note{font-size:11px;line-height:1.9;margin-top:24px;padding-left:14px}.partnership-brief-label{font-size:7px;margin-top:29px!important;line-height:1.7}}

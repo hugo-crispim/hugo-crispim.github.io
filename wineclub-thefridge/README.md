@@ -6,7 +6,7 @@ Live site: https://hugo-crispim.github.io/wineclub-thefridge/
 
 This project is contained entirely in this directory. The marketing portfolio at the repository root is unchanged. GitHub Pages serves these static files directly; no build or external service is needed.
 
-Includes an original interior concept render, a matching architectural sketch comparison, six interactive wine categories, an illustrative spatial study, property and design partner briefs, and a downloadable three-page project brief.
+Includes an original interior concept render, a matching architectural sketch comparison, six interactive wine categories, an illustrative spatial study, property and design partner briefs, and a downloadable four-page project brief.
 
 All property dimensions, seating ranges and price directions are preliminary assumptions for discussion. No location is secured. Visuals and the zoning diagram are conceptual, not photographs or construction documents.
 
