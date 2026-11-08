@@ -1,6 +1,8 @@
-# The Fridge — Prague concept
+# FRIDGES — Wine Room
 
-A neighbourhood wine shop and listening bar concept by Hugo & Mantas.
+Neighbourhood wine shop & listening bar. A Prague concept by Hugo & Mantas.
+
+Brand lockup: **FRIDGES** / **Wine Room**.
 
 Live site: https://hugo-crispim.github.io/wineclub-thefridge/
 
@@ -10,7 +12,7 @@ Includes an original interior concept render, a matching architectural sketch co
 
 All property dimensions, seating ranges and price directions are preliminary assumptions for discussion. No location is secured. The location photographs document the existing premises; the renderings, sketch studies and zoning diagram are conceptual, not construction documents. The Na valech premises are a potential location only. Availability, landlord agreement and technical feasibility are unconfirmed; outdoor seating needs separate confirmation.
 
-Fonts: Instrument Serif and Manrope, distributed under the included SIL Open Font Licenses. Reference interior images were supplied by the founders. Architectural images were generated for this concept using those references.
+Fonts: Instrument Serif and Manrope, distributed under the included SIL Open Font Licenses. Reference interior images were supplied by the founders. Architectural images were generated for this concept using those references. Exterior concept visuals use the FRIDGES / Wine Room signage lockup. The current downloadable brief is `FRIDGES_Project_Brief.pdf`.
 
 Contact: hugocrispim.writer@gmail.com
 

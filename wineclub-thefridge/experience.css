@@ -35,3 +35,17 @@
  .nav>.concept-return span{display:none}.nav>.concept-return svg{width:17px;height:17px}
  .experience-mobile-nav{padding-left:22px;padding-right:22px}
 }
+
+/* FRIDGES / Wine Room brand lockup, shared with the concept presentation. */
+@font-face{font-family:WineRoomSerif;src:url('./instrument-italic.ttf') format('truetype');font-style:italic;font-weight:400;font-display:swap}
+.nav .brand{display:flex;flex-direction:column;align-items:flex-start;gap:5px;line-height:1;font-size:20px}
+.nav .brand .brand-sub{font-family:WineRoomSerif,Georgia,serif;font-size:14px;font-style:italic;font-weight:400;letter-spacing:.02em;line-height:1.1;margin:0;vertical-align:baseline}
+.awning{display:flex;justify-content:space-between;align-items:center;gap:18px}
+.awning-wordmark{line-height:1;flex-shrink:0}
+.awning-wordmark small{display:block;font-family:WineRoomSerif,Georgia,serif;font-size:15px;font-style:italic;font-weight:400;letter-spacing:.02em;line-height:1.1;margin-top:5px}
+.hero-foot>p{max-width:440px}
+.closing-brand-sub{font-family:WineRoomSerif,Georgia,serif;font-size:20px;font-style:italic;text-transform:none}
+.giant{font-size:17.5vw}
+@media(max-width:650px){.giant{font-size:20vw}.nav .brand .brand-sub{font-size:13px}.hero-foot>p{font-size:14px;max-width:74%}}
+
+.vinyl>div{font-size:14px;line-height:1.25}.vinyl>div .record-brand-sub{font-family:WineRoomSerif,Georgia,serif;font-size:10px;font-style:italic;font-weight:400;letter-spacing:0;text-transform:none}

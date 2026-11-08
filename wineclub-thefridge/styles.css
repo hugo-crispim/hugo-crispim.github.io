@@ -28,6 +28,14 @@
 .direction{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.3;display:inline-block;vertical-align:middle;flex-shrink:0}.text-link .direction,.contact-link .direction{width:22px;height:22px}.comparison-line .direction{width:23px;height:23px}.mono-note .direction,.figure-caption .direction{width:12px;height:12px}.mobile-nav .direction{width:24px;height:24px}.site-footer .direction{width:12px;height:12px}
 @media(max-width:600px){.hero-intro{display:block;font-size:12px;line-height:1.85}.hero-intro .text-link{display:inline-flex;margin-top:16px;font-size:10px}.editorial-copy>p:not(.lead),.rituals p,.design-notes p,.business-rows p,.partner-panel>div>p:not(.eyebrow){font-size:13px}.brief-list dd{font-size:12px}.layout-grid>div:first-child>p{font-size:13px}.zone-note{font-size:12px!important}.menu-toggle{width:44px;height:44px;padding:11px}.menu-toggle span{width:20px}.small-note{font-size:11px}}
 
+/* FRIDGES / Wine Room: the shared brand lockup. */
+.brand-sub{font-family:var(--serif);font-style:italic;font-size:15px!important;letter-spacing:.02em;line-height:1.1;margin-top:5px}
+.image-stamp>span{line-height:1}
+.image-stamp>span>b{display:block;font-family:var(--serif);font-style:italic;font-size:19px;font-weight:400;letter-spacing:.02em;margin-top:4px}
+.footer-brand{line-height:1.1}
+.footer-brand>span{display:block;font-family:var(--serif);font-style:italic;font-size:14px;font-weight:400;letter-spacing:.02em;margin-top:5px}
+@media(max-width:600px){.brand-sub{font-size:13px!important}.image-stamp>span>b{font-size:15px}.footer-brand>span{font-size:13px}}
+
 /* A potential address, with existing photographs kept distinct from concept studies. */
 .location-study{padding-top:12px}
 .location-brief-link{display:block;width:fit-content;border-bottom:1px solid currentColor;margin-top:9px;font-size:10px;line-height:1.8;color:var(--ink)}
