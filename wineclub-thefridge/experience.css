@@ -4,3 +4,34 @@
 .concept-return{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:42px;padding:10px 13px;border:1px solid rgba(255,119,168,.45);color:var(--pink);font:10px "DM Mono",monospace;letter-spacing:.05em;white-space:nowrap;flex-shrink:0;transition:background .2s,color .2s}.concept-return svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.4}.concept-return:hover{background:var(--pink);color:var(--black)}.concept-return:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--pink);outline-offset:5px}@media(min-width:1001px){.nav{gap:20px}.nav nav{gap:24px}.status{margin-left:auto}.concept-return{margin-left:6px}}@media(max-width:640px){.concept-return{font-size:9px;padding:9px 10px;min-height:44px;gap:7px}.concept-return svg{width:13px;height:13px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 /* Preserve the oversized type while keeping long source headlines inside phone widths. */
 @media(max-width:640px){.mega-lines p{font-size:clamp(40px,12.4vw,58px)}.music-copy h2{font-size:clamp(42px,12.5vw,60px)}}
+
+/* Mobile section navigation, matched to the original black and pink identity. */
+.experience-menu-toggle,.experience-mobile-nav{display:none}
+.experience-mobile-nav[hidden]{display:none!important}
+@media(max-width:1000px){
+ .nav{gap:8px}.nav>.brand{margin-right:auto;white-space:nowrap}
+ .experience-menu-toggle{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:10px 11px;border:1px solid rgba(255,119,168,.45);background:transparent;color:var(--pink);font:10px "DM Mono",monospace;letter-spacing:.05em;flex-shrink:0;cursor:pointer}
+ .experience-menu-icon{position:relative;width:16px;height:12px;display:block}
+ .experience-menu-icon i{position:absolute;left:0;right:0;height:1px;background:currentColor;transition:transform .2s;top:3px}
+ .experience-menu-icon i:last-child{top:9px}
+ .experience-menu-toggle[aria-expanded="true"]{background:var(--pink);color:var(--black)}
+ .experience-menu-toggle[aria-expanded="true"] .experience-menu-icon i:first-child{transform:translateY(3px) rotate(45deg)}
+ .experience-menu-toggle[aria-expanded="true"] .experience-menu-icon i:last-child{transform:translateY(-3px) rotate(-45deg)}
+ .experience-mobile-nav{display:block;position:fixed;left:0;right:0;top:70px;z-index:79;background:#0b0b0b;max-height:calc(100vh - 70px);max-height:calc(100dvh - 70px);overflow-y:auto;overscroll-behavior:contain;padding:23px 4vw 22px;border-bottom:1px solid rgba(255,119,168,.45);box-shadow:0 25px 55px #000b}
+ .experience-menu-kicker{margin:0 0 16px;color:var(--pink);font:9px "DM Mono",monospace;letter-spacing:.12em}
+ .experience-menu-links>a{display:flex;gap:18px;align-items:center;min-height:57px;border-top:1px solid rgba(255,255,255,.14);color:var(--cream)}
+ .experience-menu-links>a:last-child{border-bottom:1px solid rgba(255,255,255,.14)}
+ .experience-menu-links>a>span:nth-child(2){font-family:Inter,Arial,sans-serif;font-size:clamp(23px,3vw,29px);font-weight:800;letter-spacing:-.04em}
+ .experience-menu-links .menu-index{color:var(--pink);font:9px "DM Mono",monospace;align-self:center}
+ .experience-menu-links svg,.experience-menu-concept svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.2;flex-shrink:0}
+ .experience-menu-links svg{margin-left:auto;color:var(--pink)}
+ .experience-menu-links>a:hover{color:var(--pink)}
+ .experience-menu-concept{display:flex;align-items:center;gap:11px;min-height:44px;margin-top:14px;color:var(--pink);font:9px "DM Mono",monospace;letter-spacing:.05em}
+ .experience-menu-concept svg{transform:rotate(180deg);width:16px;height:16px}
+ #fridges,#music,#people,#tree{scroll-margin-top:70px}
+}
+@media(max-width:640px){
+ .nav>.concept-return{width:44px;height:44px;min-height:44px;padding:0;display:grid;place-items:center}
+ .nav>.concept-return span{display:none}.nav>.concept-return svg{width:17px;height:17px}
+ .experience-mobile-nav{padding-left:22px;padding-right:22px}
+}
