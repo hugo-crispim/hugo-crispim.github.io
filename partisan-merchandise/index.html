@@ -15,6 +15,8 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 @media print{header,nav,.catalog,.catalog-head,.art-note,#order-panel,.orders-controls,footer,.mini,.hero .pill{display:none!important}body{background:#fff}.wrap{padding:0}.panel{border:0}.hero{padding:10px 0}.orders-table td:nth-child(2){display:table-cell}.mobile-detail{display:none!important}}
 .import-note{padding:12px 28px;background:#f7f8f3;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}.review-tag{display:block;width:max-content;max-width:100%;font-size:10px;font-weight:500;line-height:1.5;background:#fff1d2;color:#805b14;border-radius:5px;padding:2px 6px;margin-top:5px}.line-amount{white-space:nowrap;color:var(--ink)}@media(max-width:760px){.import-note{padding:12px 17px;font-size:11px}.review-tag{font-size:9px}}
+
+.batch-tabs{display:flex;gap:24px;padding:0 28px;border-bottom:1px solid var(--line)}.batch-tab{padding:13px 0 11px;background:transparent;border-bottom:2px solid transparent;color:var(--muted);font-size:12px;font-weight:600;min-height:44px}.batch-tab[aria-selected="true"]{border-color:var(--ink);color:var(--ink)}.batch-caption{padding:16px 28px 0;font-size:13px;font-weight:600}.past-picker{padding:17px 28px 0}.past-picker select{width:100%;max-width:480px;height:44px;border:1px solid var(--line);border-radius:8px;background:white;color:var(--ink);padding:8px 10px;font:inherit;font-size:14px}.admin-tools{padding:16px 28px 21px;border-top:1px solid #e9edef}.admin-tools a{display:inline-flex;align-items:center;border:1px solid #ccd4d9;border-radius:7px;background:#fff;padding:7px 11px;font-size:11px;font-weight:550;text-decoration:none;min-height:34px}.admin-tools a:hover{background:var(--light)}.admin-tools p{margin-top:7px;font-size:10px;color:var(--muted);max-width:610px;line-height:1.6}.batch-caption+.import-note{padding-top:8px;background:white;border-bottom:0}@media(max-width:760px){.batch-tabs{padding:0 17px;gap:25px}.batch-caption,.past-picker{padding-left:17px;padding-right:17px}.admin-tools{padding:15px 17px 18px}.admin-tools a{min-height:44px}.past-picker select{font-size:16px}}@media print{.batch-tabs,.past-picker,.admin-tools{display:none!important}}
 </style>
 </head>
 <body>
@@ -38,13 +40,17 @@
 </form>
 </section>
 <section class="panel" id="team-orders" aria-labelledby="team-heading">
-<div class="section-top"><div class="section-title"><span class="step">02</span><div><h2 id="team-heading">All submitted orders</h2><p class="section-caption">Original sheet orders and every new website pre-order.</p></div></div><span class="quiet" id="connection-status"><span class="live-dot"></span>Connecting…</span></div>
+<div class="section-top"><div class="section-title"><span class="step">02</span><div><h2 id="team-heading">All submitted orders</h2><p class="section-caption">Current pre-orders and previous order batches.</p></div></div><span class="quiet" id="connection-status"><span class="live-dot"></span>Connecting…</span></div>
+<div class="batch-tabs" role="tablist" aria-label="Order batches"><button class="batch-tab" id="current-batch-tab" role="tab" aria-selected="true" aria-controls="batch-panel" type="button">Current batch</button><button class="batch-tab" id="past-batches-tab" role="tab" aria-selected="false" aria-controls="batch-panel" type="button">Past Orders</button></div>
+<div id="batch-panel" role="tabpanel" aria-labelledby="current-batch-tab"><div class="batch-caption" id="batch-view-caption">Loading current batch…</div>
+<div class="past-picker" id="past-picker" hidden><label for="past-batch-select">Past order batch</label><select id="past-batch-select"></select></div>
 <p class="import-note" id="import-note">Loading the complete order list…</p>
-<div class="orders-controls"><input type="search" class="search" id="search-orders" placeholder="Find a name…" aria-label="Find an order by name"><div class="button-group"><button class="secondary" type="button" id="refresh-orders">↻ Refresh</button><button class="secondary" type="button" id="export-orders">↓ Download CSV</button></div></div>
+<div class="orders-controls" id="orders-controls"><input type="search" class="search" id="search-orders" placeholder="Find a name…" aria-label="Find an order by name"><div class="button-group"><button class="secondary" type="button" id="refresh-orders">↻ Refresh</button><button class="secondary" type="button" id="export-orders">↓ Download CSV</button></div></div>
 <div class="orders-body"><div class="empty" id="orders-empty" role="status">Loading pre-orders…</div><table class="orders-table hidden" id="orders-table"><thead><tr><th scope="col">Name / source</th><th scope="col">Items / sizes / quantities</th><th scope="col">Order total</th><th scope="col"><span class="quiet">Manage</span></th></tr></thead><tbody id="orders-body"></tbody></table></div>
-<div class="orders-foot"><span id="team-count">No orders loaded yet.</span><span id="team-value">Team total <strong>—</strong></span></div>
+<div class="orders-foot" id="orders-summary"><span id="team-count">No orders loaded yet.</span><span id="team-value">Batch total <strong>—</strong></span></div>
+<div class="admin-tools" id="admin-tools"><a id="admin-batch-link" href="https://partisan-merchandise.funnyether4.chatgpt.site/admin/batches" target="_blank" rel="noopener noreferrer">Start New Order Batch</a><p>Admin only: close this order batch and start a new one. Existing orders will be saved in the Past Orders tab. Admin sign-in and confirmation required.</p></div></div>
 </section>
-<footer><span>PARTISAN · One club. One love.</span><span>Existing orders from the <a href="https://docs.google.com/spreadsheets/d/1CmiU9mRYf5xG8JTq_obtpZp8wBPNuK-5cMMiTcGgyvM/edit?gid=629814951#gid=629814951" target="_blank" rel="noopener noreferrer">club order sheet ↗</a> are included above. New orders are saved here.</span></footer>
+<footer><span>PARTISAN · One club. One love.</span><span>Existing orders from the <a href="https://docs.google.com/spreadsheets/d/1CmiU9mRYf5xG8JTq_obtpZp8wBPNuK-5cMMiTcGgyvM/edit?gid=629814951#gid=629814951" target="_blank" rel="noopener noreferrer">club order sheet ↗</a> are saved with their batch. Current and past batches can be downloaded above.</span></footer>
 </main>
 <dialog id="confirm-dialog"><h3 id="confirm-title">Cancel your pre-order?</h3><p id="confirm-description">Your order will be removed from the active team list. You can place a new order later.</p><div class="button-group"><button class="secondary" id="confirm-no" type="button">Keep order</button><button class="primary" id="confirm-yes" type="button">Cancel pre-order</button></div></dialog>
 <div id="toast" class="toast hidden" role="status"></div>
@@ -54,7 +60,8 @@
 const CATALOG = [{"id":"tshirt","name":"T-shirt","code":"HM7127-410","price":330,"colour":"Navy"},{"id":"shorts","name":"Shorts","code":"FZ9776-410","price":401,"colour":"Navy"},{"id":"drill","name":"Drill top","code":"FZ9767-463","price":715,"colour":"Royal blue / navy"},{"id":"pants","name":"Knit pants","code":"FZ9805-410","price":715,"colour":"Navy"},{"id":"polo","name":"Polo","code":"FZ9759-410","price":605,"colour":"Navy"},{"id":"jacket","name":"Rain jacket","code":"FZ9858-410","price":990,"colour":"Navy"},{"id":"hoodie","name":"Hoodie","code":"IO9035-010","price":880,"colour":"Black"}];
 const SIZES = ['XS','S','M','L','XL','2XL','3XL'];
 const API_ORIGIN = 'https://partisan-merchandise.funnyether4.chatgpt.site';
-const API = (location.hostname === 'hugo-crispim.github.io' ? API_ORIGIN : location.origin) + '/api/orders';
+const SERVICE_ORIGIN = location.hostname === 'hugo-crispim.github.io' ? API_ORIGIN : location.origin;
+const API = SERVICE_ORIGIN + '/api/orders';
 const $ = id => document.getElementById(id);
 const money = value => new Intl.NumberFormat('cs-CZ',{maximumFractionDigits:0}).format(value) + ' Kč';
 const escapeHtml = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -64,7 +71,8 @@ function readStorage(key,fallback){try{return JSON.parse(localStorage.getItem(ke
 function writeStorage(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch{storageAvailable=false;$('draft-status').textContent='Device storage unavailable';return false}}
 let mine = readStorage(KEYS.mine,{});
 if(!mine || typeof mine !== 'object' || Array.isArray(mine)) mine={};
-let lines = [], orders = [], editing = null, pendingKey = null, busy = false, haveOrders = false, cancelAction = null, ordersLoading = false, orderRevision = 0;
+let lines = [], orders = [], editing = null, pendingKey = null, busy = false, haveOrders = false, cancelAction = null, ordersLoading = false, orderRevision = 0, reloadRequested = false;
+let activeBatch = null, selectedBatch = null, pastBatches = [], viewMode = 'current', viewBatchId = null, formBatchId = null, currentOrdersCache = [];
 function blankLine(){return {key:crypto.randomUUID(),productId:'',size:'',quantity:1,initials:''}}
 function product(id){return CATALOG.find(p=>p.id===id)}
 function lineTotal(line){const p=product(line.productId);return p ? (p.price+(line.initials.trim()?39:0))*(Number.isInteger(line.quantity)&&line.quantity>0?line.quantity:0):0}
@@ -103,79 +111,105 @@ function updateTotal(){
  $('order-total').textContent=money(total);
  $('total-caption').textContent=count+' '+(count===1?'item':'items')+' · Logo included'+(initialCount?' · Initials '+money(initialCount*39):'');
 }
-function saveDraft(){writeStorage(KEYS.draft,{name:$('player-name').value,lines,editing,pendingKey});if(storageAvailable)$('draft-status').textContent='Draft saved on this device'}
-function newKey(){return {id:crypto.randomUUID(),editToken:Array.from(crypto.getRandomValues(new Uint8Array(32)),b=>b.toString(16).padStart(2,'0')).join('')}}
+function saveDraft(){writeStorage(KEYS.draft,{name:$('player-name').value,lines,editing,pendingKey,batchId:formBatchId});if(storageAvailable)$('draft-status').textContent='Draft saved on this device'}
+function newKey(){return {id:crypto.randomUUID(),batchId:formBatchId,editToken:Array.from(crypto.getRandomValues(new Uint8Array(32)),b=>b.toString(16).padStart(2,'0')).join('')}}
 function message(text,error=false){$('form-message').textContent=text;$('form-message').classList.toggle('error',error);$('form-message').classList.remove('hidden')}
 function clearMessage(){$('form-message').classList.add('hidden')}
 function resetForm(keepName=true){let name=keepName?$('player-name').value:'';lines=[blankLine()];editing=null;pendingKey=null;$('player-name').value=name;$('submit-label').textContent='Save pre-order';$('stop-edit').classList.add('hidden');$('form-caption').textContent='One name. As many items as you need.';renderLines();saveDraft()}
 function addProduct(id){if(busy)return;const p=product(id);if(!p)return;if(lines.length>=25){toast('Maximum 25 item lines per order.');return}let line=lines.find(l=>!l.productId);if(!line){line=blankLine();lines.push(line)}line.productId=id;renderLines();saveDraft();clearMessage();toast(p.name+' added · choose your size')}
-async function fetchJson(options={}){
- const response=await fetch(API,{...options,signal:AbortSignal.timeout(15000)});
+async function fetchJson(options={},url=API){
+ const response=await fetch(url,{...options,signal:AbortSignal.timeout(15000)});
  let data;try{data=await response.json()}catch{throw new Error('Order storage is unavailable. Your draft is kept. Please try again.')}
- if(!response.ok)throw new Error(data.error||'Could not save this order. Please try again.');return data;
+ if(!response.ok){const error=new Error(data.error||'Could not save this order. Please try again.');error.code=data.code;throw error}return data;
 }
-function ownOrder(id){return Object.hasOwn(mine,id)}
+function ownOrder(id){return viewMode==='current'&&!selectedBatch?.closedAt&&Object.hasOwn(mine,id)}
+const batchDate=value=>new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'Europe/Prague'}).format(new Date(value));
+function applyBatchMetadata(data){
+ const oldFormBatch=formBatchId;
+ if(activeBatch&&activeBatch.id!==data.activeBatch.id)currentOrdersCache=[];
+ activeBatch=data.activeBatch;selectedBatch=data.batch;pastBatches=data.pastBatches;
+ if(viewMode==='past')viewBatchId=selectedBatch?.id||null;
+ if(oldFormBatch&&oldFormBatch!==activeBatch.id){editing=null;pendingKey=null;$('submit-label').textContent='Save pre-order';$('stop-edit').classList.add('hidden');message('The previous batch has closed. Your draft is kept. Review your items before saving them to '+activeBatch.title+'.')}
+ formBatchId=activeBatch.id;
+ if(!editing)$('form-caption').textContent=activeBatch.title+' · One name. As many items as you need.';
+ saveDraft();setBusy(false);
+}
+function renderBatchUI(){
+ $('current-batch-tab').setAttribute('aria-selected',String(viewMode==='current'));
+ $('past-batches-tab').setAttribute('aria-selected',String(viewMode==='past'));
+ $('batch-panel').setAttribute('aria-labelledby',viewMode==='current'?'current-batch-tab':'past-batches-tab');
+ $('batch-view-caption').textContent=selectedBatch?selectedBatch.title+' · '+(selectedBatch.closedAt?'Closed '+batchDate(selectedBatch.closedAt)+' · Read only':'Open for pre-orders'):(viewMode==='past'?'Past Orders':'Loading current batch…');
+ $('past-picker').hidden=viewMode!=='past'||pastBatches.length===0;
+ $('past-batch-select').innerHTML=pastBatches.map(b=>'<option value="'+escapeHtml(b.id)+'"'+(b.id===selectedBatch?.id?' selected':'')+'>'+escapeHtml(b.title)+' · '+batchDate(b.closedAt)+' · '+b.orderCount+' orders · '+money(b.total)+'</option>').join('');
+ $('admin-tools').hidden=viewMode!=='current';
+ $('orders-controls').hidden=viewMode==='past'&&haveOrders&&!selectedBatch;
+ $('orders-summary').hidden=viewMode==='past'&&haveOrders&&!selectedBatch;
+}
+function switchBatchView(mode,id=null){
+ if(busy)return;
+ viewMode=mode;viewBatchId=mode==='past'?id:null;selectedBatch=null;orders=[];haveOrders=false;orderRevision++;$('search-orders').value='';renderOrders();loadOrders(true);
+}
 function detailMarkup(order){return order.items.map(line=>'<span>'+line.quantity+' × '+escapeHtml(line.name)+' · '+escapeHtml(line.size)+(line.initials?' · <span class="initial" style="display:inline">'+escapeHtml(line.initials)+'</span>':'')+' · <span class="line-amount" style="display:inline">'+money(line.total)+'</span></span>').join('')}
 function renderOrders(){
  const term=$('search-orders').value.trim().toLocaleLowerCase();
  const matching=orders.filter(order=>order.name.toLocaleLowerCase().includes(term));
  const table=$('orders-table'),empty=$('orders-empty');
  table.classList.toggle('hidden',matching.length===0);empty.classList.toggle('hidden',matching.length>0);
- if(!matching.length)empty.textContent=term?'No orders match this name.':(haveOrders?'No pre-orders yet. Save yours to get the team started.':'Orders haven’t loaded. Tap Refresh to try again.');
+ if(!matching.length)empty.textContent=!haveOrders?'Loading orders…':viewMode==='past'&&!selectedBatch?'No past order batches yet. Closed batches will be saved here.':term?'No orders match this name.':viewMode==='past'?'No active orders were saved in this batch.':'No pre-orders in '+(selectedBatch?.title||'this batch')+' yet. Save yours to get the team started.';
  $('orders-body').innerHTML=matching.map(order=>'<tr data-order-id="'+escapeHtml(order.id)+'"><td><div class="person">'+escapeHtml(order.name)+(ownOrder(order.id)?'<span class="mytag">YOURS</span>':'')+'</div><div class="order-date">'+(order.source==='sheet'?'Original sheet · row '+order.sourceRow:'Website · '+escapeHtml(new Date(order.createdAt).toLocaleDateString('en-GB',{day:'numeric',month:'short'}))+' · '+escapeHtml(order.id.slice(0,8)))+'</div>'+(order.needsName?'<span class="review-tag">Player name missing in original sheet</span>':'')+'<div class="mobile-detail" style="display:none">'+detailMarkup(order)+'</div></td><td class="order-detail">'+detailMarkup(order)+'</td><td>'+money(order.total)+'</td><td>'+(ownOrder(order.id)?'<button class="mini" data-edit="'+escapeHtml(order.id)+'" type="button" aria-label="Edit order for '+escapeHtml(order.name)+'">Edit</button><button class="mini cancel" data-cancel="'+escapeHtml(order.id)+'" type="button" aria-label="Cancel order for '+escapeHtml(order.name)+'">Cancel</button>':'')+'</td></tr>').join('');
  const unique=new Set(orders.filter(o=>!o.needsName).map(o=>o.name.trim().toLocaleLowerCase())).size;
  const sheetOrders=orders.filter(o=>o.source==='sheet').length;
  const missingNames=orders.filter(o=>o.needsName).length;
- $('import-note').textContent=haveOrders?sheetOrders+' original sheet orders · '+(orders.length-sheetOrders)+' website order'+(orders.length-sheetOrders===1?'':'s')+(missingNames?' · '+missingNames+' player name missing in the original sheet':'')+'. Updates automatically every 30 seconds.':'The complete order list is temporarily unavailable. Tap Refresh to try again.';
+ $('import-note').textContent=!haveOrders?'Loading the order list…':viewMode==='past'&&!selectedBatch?'Each closed batch stays available with its own CSV download.':(sheetOrders?sheetOrders+' original sheet orders · ':'')+(orders.length-sheetOrders)+' website order'+(orders.length-sheetOrders===1?'':'s')+(missingNames?' · '+missingNames+' player name missing':'')+(selectedBatch?.closedAt?'. This batch is archived.':'. Updates automatically every 30 seconds.');
  const units=orders.reduce((sum,o)=>sum+o.items.reduce((n,l)=>n+l.quantity,0),0);
  $('team-count').textContent=haveOrders?orders.length+' '+(orders.length===1?'order':'orders')+' · '+unique+' '+(unique===1?'name':'names')+' · '+units+' items'+(term?' · Showing '+matching.length:''):'Orders not available';
- $('team-value').innerHTML='Team total <strong>'+(haveOrders?money(orders.reduce((sum,o)=>sum+o.total,0)):'—')+'</strong>';
- $('export-orders').disabled=!haveOrders || orders.length===0;
+ $('team-value').innerHTML='Batch total <strong>'+(haveOrders?money(orders.reduce((sum,o)=>sum+o.total,0)):'—')+'</strong>';
+ $('export-orders').disabled=!haveOrders || orders.length===0;renderBatchUI();
 }
 async function loadOrders(silent=false){
- if(ordersLoading||busy)return;
- ordersLoading=true;
- const revision=orderRevision;
+ if(ordersLoading||busy){reloadRequested=true;return}
+ ordersLoading=true;reloadRequested=false;
+ const revision=orderRevision,query=viewMode==='past'?'?batch='+encodeURIComponent(viewBatchId||'past'):'';
  $('refresh-orders').disabled=true;
- try{const data=await fetchJson();if(revision!==orderRevision)return;orders=data.orders;haveOrders=true;renderOrders();$('connection-status').innerHTML='<span class="live-dot"></span>Up to date';if(!silent)toast('All orders updated')}
- catch(error){if(revision!==orderRevision)return;$('connection-status').textContent=haveOrders?'Refresh failed':'Connection unavailable';if(!haveOrders){renderOrders();$('orders-empty').textContent='Couldn’t load the complete order list. Your draft is safe. Tap Refresh to try again.'}if(!silent)toast(error.message)}
- finally{ordersLoading=false;$('refresh-orders').disabled=false}
+ try{const data=await fetchJson({},API+query);if(revision!==orderRevision){reloadRequested=true;return}applyBatchMetadata(data);orders=data.orders;if(viewMode==='current')currentOrdersCache=[...orders];haveOrders=true;renderOrders();$('connection-status').innerHTML='<span class="live-dot"></span>'+(selectedBatch?.closedAt?'Archived':'Up to date');if(!silent)toast('Batch orders updated')}
+ catch(error){if(revision!==orderRevision){reloadRequested=true;return}$('connection-status').textContent=haveOrders?'Refresh failed':'Connection unavailable';if(!haveOrders){renderOrders();$('orders-empty').textContent='Couldn’t load this batch. Your draft is safe. Tap Refresh to try again.';$('import-note').textContent='The order list is temporarily unavailable.'}if(!silent)toast(error.message)}
+ finally{ordersLoading=false;$('refresh-orders').disabled=false;if(reloadRequested&&!busy)loadOrders(true)}
 }
-function setBusy(value){busy=value;Array.from($('order-form').elements).forEach(el=>el.disabled=value);$('submit-label').textContent=value?'Saving…':(editing?'Update pre-order':'Save pre-order')}
+function setBusy(value){busy=value;Array.from($('order-form').elements).forEach(el=>el.disabled=value);$('submit-label').textContent=value?'Saving…':(editing?'Update pre-order':'Save pre-order');$('submit-order').disabled=value||!activeBatch}
 async function submitOrder(event){
- event.preventDefault();if(busy)return;if(!$('order-form').reportValidity())return;
+ event.preventDefault();if(busy)return;if(!activeBatch||!formBatchId){message('Wait for the current batch to load, then try again.',true);return}if(!$('order-form').reportValidity())return;
  const selected=lines.filter(l=>l.productId);if(!selected.length){message('Please select at least one item.',true);return}
  if(selected.some(l=>!SIZES.includes(l.size)||!Number.isInteger(l.quantity)||l.quantity<1||l.quantity>10)){message('Choose a size and quantity from 1 to 10 for each item.',true);return}
  if(selected.some(l=>l.initials.trim()&&!/^[\p{L}\p{N} .-]{1,8}$/u.test(l.initials.trim()))){message('Use up to 8 letters or numbers for initials.',true);return}
  const key=editing?mine[editing]:(pendingKey||newKey());
  if(!key){message('The edit key is missing on this browser. Refresh and try again.',true);return}
  pendingKey=key;saveDraft();mine[key.id]=key;writeStorage(KEYS.mine,mine);
- const payload={...key,name:$('player-name').value.trim(),items:selected.map(({productId,size,quantity,initials})=>({productId,size,quantity,initials:initials.trim()})),website:$('website').value};
+ const payload={...key,batchId:formBatchId,name:$('player-name').value.trim(),items:selected.map(({productId,size,quantity,initials})=>({productId,size,quantity,initials:initials.trim()})),website:$('website').value};
  clearMessage();setBusy(true);
  try{
   const data=await fetchJson({method:editing?'PUT':'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
   const wasEditing=Boolean(editing);
-  orderRevision++;orders=[data.order,...orders.filter(o=>o.id!==data.order.id)];haveOrders=true;$('search-orders').value='';
+  orderRevision++;viewMode='current';viewBatchId=null;selectedBatch=activeBatch;orders=[data.order,...currentOrdersCache.filter(o=>o.id!==data.order.id)];currentOrdersCache=[...orders];haveOrders=true;$('search-orders').value='';reloadRequested=true;
   resetForm();renderOrders();$('connection-status').innerHTML='<span class="live-dot"></span>Saved';
   message((wasEditing?'Pre-order updated':'Pre-order saved')+' for '+data.order.name+' · '+money(data.order.total)+'. It is now visible in All submitted orders below.'+(storageAvailable?'':' Keep this page open to retain editing access.'));
   $('form-message').focus();
- }catch(error){message(error.name==='TimeoutError'?'The save timed out. Your draft is kept. Tap Save again; it will not create a duplicate.':error.message,true)}
- finally{setBusy(false)}
+ }catch(error){if(error.code==='BATCH_CHANGED'){pendingKey=null;editing=null;reloadRequested=true;saveDraft()}message(error.name==='TimeoutError'?'The save timed out. Your draft is kept. Tap Save again; it will not create a duplicate.':error.message,true)}
+ finally{setBusy(false);if(reloadRequested)loadOrders(true)}
 }
-function editOrder(id){if(busy)return;const order=orders.find(o=>o.id===id);if(!order||!mine[id])return;editing=id;pendingKey=null;$('player-name').value=order.name;lines=order.items.map(l=>({key:crypto.randomUUID(),productId:l.productId,size:l.size,quantity:l.quantity,initials:l.initials}));renderLines();$('submit-label').textContent='Update pre-order';$('stop-edit').classList.remove('hidden');$('form-caption').textContent='Editing saved order · '+id.slice(0,8);clearMessage();saveDraft();$('order-panel').scrollIntoView({behavior:'smooth',block:'start'})}
-function confirmCancel(id){if(busy)return;const order=orders.find(o=>o.id===id);if(!order)return;$('confirm-description').textContent='Cancel the pre-order for '+order.name+' ('+money(order.total)+')? It will be removed from the active team list.';cancelAction=id;$('confirm-dialog').showModal()}
+function editOrder(id){if(busy||!ownOrder(id))return;const order=orders.find(o=>o.id===id);if(!order||!mine[id])return;editing=id;pendingKey=null;$('player-name').value=order.name;lines=order.items.map(l=>({key:crypto.randomUUID(),productId:l.productId,size:l.size,quantity:l.quantity,initials:l.initials}));renderLines();$('submit-label').textContent='Update pre-order';$('stop-edit').classList.remove('hidden');$('form-caption').textContent='Editing saved order · '+id.slice(0,8);clearMessage();saveDraft();$('order-panel').scrollIntoView({behavior:'smooth',block:'start'})}
+function confirmCancel(id){if(busy||!ownOrder(id))return;const order=orders.find(o=>o.id===id);if(!order)return;$('confirm-description').textContent='Cancel the pre-order for '+order.name+' ('+money(order.total)+')? It will be removed from the active team list.';cancelAction=id;$('confirm-dialog').showModal()}
 async function cancelOrder(){
  const id=cancelAction;if(!id||!mine[id])return;
  $('confirm-yes').disabled=true;
- try{await fetchJson({method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify(mine[id])});orderRevision++;orders=orders.filter(o=>o.id!==id);if(editing===id)resetForm();renderOrders();$('confirm-dialog').close();toast('Pre-order cancelled')}
- catch(error){$('confirm-description').textContent=error.message}
+ try{await fetchJson({method:'DELETE',headers:{'Content-Type':'application/json'},body:JSON.stringify({...mine[id],batchId:formBatchId})});orderRevision++;orders=orders.filter(o=>o.id!==id);currentOrdersCache=[...orders];if(editing===id)resetForm();renderOrders();$('confirm-dialog').close();toast('Pre-order cancelled')}
+ catch(error){$('confirm-description').textContent=error.message;if(error.code==='BATCH_CHANGED'){$('confirm-dialog').close();loadOrders(true);toast(error.message)}}
  finally{$('confirm-yes').disabled=false;cancelAction=null}
 }
 function csvCell(value){let s=String(value??'');if(/^[\s\u0000-\u001f]*[=+\-@]/.test(s))s="'"+s;return '"'+s.replaceAll('"','""')+'"'}
 function exportCsv(){
- const rows=[['Order reference','Name','Item','Nike code','Size','Quantity','Initials','Unit price CZK','Initials per item CZK','Line total CZK','Order total CZK','Saved / imported at','Source','Original sheet row','Name missing']];
- orders.forEach(o=>o.items.forEach((l,i)=>rows.push([o.id,o.name,l.name,l.code,l.size,l.quantity,l.initials,l.unitPrice,l.initialsFee,l.total,i===0?o.total:'',o.createdAt,o.source==='sheet'?'Original sheet':'Website',o.sourceRow??'',o.needsName?'Yes':'No'])));
- const blob=new Blob(['\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='partisan-all-orders-'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('All orders exported, including original sheet orders');
+ const rows=[['Order reference','Name','Item','Nike code','Size','Quantity','Initials','Unit price CZK','Initials per item CZK','Line total CZK','Order total CZK','Saved / imported at','Source','Original sheet row','Name missing','Batch','Batch status','Batch closed at']];
+ orders.forEach(o=>o.items.forEach((l,i)=>rows.push([o.id,o.name,l.name,l.code,l.size,l.quantity,l.initials,l.unitPrice,l.initialsFee,l.total,i===0?o.total:'',o.createdAt,o.source==='sheet'?'Original sheet':'Website',o.sourceRow??'',o.needsName?'Yes':'No',selectedBatch?.title||'',selectedBatch?.closedAt?'Closed':'Open',selectedBatch?.closedAt||''])));
+ const blob=new Blob(['\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='partisan-batch-'+(selectedBatch?.number||'current')+'-orders-'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast((selectedBatch?.title||'Batch')+' orders exported');
 }
 $('catalog').addEventListener('click',event=>{const button=event.target.closest('[data-product]');if(button)addProduct(button.dataset.product)});
 $('order-lines').addEventListener('input',event=>{
@@ -190,6 +224,11 @@ $('player-name').addEventListener('input',saveDraft);
 $('order-form').addEventListener('submit',submitOrder);
 $('stop-edit').addEventListener('click',()=>{resetForm();clearMessage()});
 $('refresh-orders').addEventListener('click',()=>loadOrders());
+$('current-batch-tab').addEventListener('click',()=>switchBatchView('current'));
+$('past-batches-tab').addEventListener('click',()=>switchBatchView('past'));
+$('past-batch-select').addEventListener('change',event=>switchBatchView('past',event.target.value));
+$('current-batch-tab').addEventListener('keydown',event=>{if(event.key==='ArrowRight'){event.preventDefault();$('past-batches-tab').focus();switchBatchView('past')}});
+$('past-batches-tab').addEventListener('keydown',event=>{if(event.key==='ArrowLeft'){event.preventDefault();$('current-batch-tab').focus();switchBatchView('current')}});
 $('search-orders').addEventListener('input',renderOrders);
 $('export-orders').addEventListener('click',exportCsv);
 $('orders-body').addEventListener('click',event=>{const edit=event.target.closest('[data-edit]'),cancel=event.target.closest('[data-cancel]');if(edit)editOrder(edit.dataset.edit);if(cancel)confirmCancel(cancel.dataset.cancel)});
@@ -204,8 +243,9 @@ function init(){
   $('player-name').value=typeof draft.name==='string'?draft.name.slice(0,80):'';
   if(draft.editing&&mine[draft.editing]){editing=draft.editing;$('submit-label').textContent='Update pre-order';$('stop-edit').classList.remove('hidden');$('form-caption').textContent='Editing saved order · '+editing.slice(0,8)}
   if(draft.pendingKey?.id&&draft.pendingKey?.editToken)pendingKey=draft.pendingKey;
+  if(typeof draft.batchId==='string')formBatchId=draft.batchId;
  }else lines=[blankLine()];
- renderCatalog();renderLines();loadOrders(true);
+ $('admin-batch-link').href=SERVICE_ORIGIN+'/admin/batches';renderCatalog();renderLines();renderOrders();setBusy(false);loadOrders(true);
 }
 init();
 </script>
