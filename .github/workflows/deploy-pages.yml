@@ -1,0 +1,49 @@
+name: Deploy website to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: static-pages-publish
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out published website
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Prepare static website
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/pages-site"
+          cp index.html styles.css app.js favicon.svg Hugo_Crispim_Resume.pdf "$RUNNER_TEMP/pages-site/"
+          cp -R wineclub-thefridge partisan-merchandise "$RUNNER_TEMP/pages-site/"
+          touch "$RUNNER_TEMP/pages-site/.nojekyll"
+          test -s "$RUNNER_TEMP/pages-site/partisan-merchandise/index.html"
+
+      - name: Upload static website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ${{ runner.temp }}/pages-site
+
+      - name: Publish GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
