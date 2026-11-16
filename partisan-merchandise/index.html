@@ -45,7 +45,7 @@
 <div id="batch-panel" role="tabpanel" aria-labelledby="current-batch-tab"><div class="batch-caption" id="batch-view-caption">Loading current batch…</div>
 <div class="past-picker" id="past-picker" hidden><label for="past-batch-select">Past order batch</label><select id="past-batch-select"></select></div>
 <p class="import-note" id="import-note">Loading the complete order list…</p>
-<div class="orders-controls" id="orders-controls"><input type="search" class="search" id="search-orders" placeholder="Find a name…" aria-label="Find an order by name"><div class="button-group"><button class="secondary" type="button" id="refresh-orders">↻ Refresh</button><button class="secondary" type="button" id="export-orders">↓ Download CSV</button></div></div>
+<div class="orders-controls" id="orders-controls"><input type="search" class="search" id="search-orders" placeholder="Find a name…" aria-label="Find an order by name"><div class="button-group"><button class="secondary" type="button" id="refresh-orders">↻ Refresh</button><button class="secondary" type="button" id="export-orders">↓ Download supplier CSV</button></div></div>
 <div class="orders-body"><div class="empty" id="orders-empty" role="status">Loading pre-orders…</div><table class="orders-table hidden" id="orders-table"><thead><tr><th scope="col">Name / source</th><th scope="col">Items / sizes / quantities</th><th scope="col">Order total</th><th scope="col"><span class="quiet">Manage</span></th></tr></thead><tbody id="orders-body"></tbody></table></div>
 <div class="orders-foot" id="orders-summary"><span id="team-count">No orders loaded yet.</span><span id="team-value">Batch total <strong>—</strong></span></div>
 <div class="admin-tools" id="admin-tools"><a id="admin-batch-link" href="https://partisan-merchandise.funnyether4.chatgpt.site/admin/batches" target="_blank" rel="noopener noreferrer">Start New Order Batch</a><p>Admin only: close this order batch and start a new one. Existing orders will be saved in the Past Orders tab. Admin sign-in and confirmation required.</p></div></div>
@@ -58,6 +58,40 @@
 <script>
 'use strict';
 const CATALOG = [{"id":"tshirt","name":"T-shirt","code":"HM7127-410","price":330,"colour":"Navy"},{"id":"shorts","name":"Shorts","code":"FZ9776-410","price":401,"colour":"Navy"},{"id":"drill","name":"Drill top","code":"FZ9767-463","price":715,"colour":"Royal blue / navy"},{"id":"pants","name":"Knit pants","code":"FZ9805-410","price":715,"colour":"Navy"},{"id":"polo","name":"Polo","code":"FZ9759-410","price":605,"colour":"Navy"},{"id":"jacket","name":"Rain jacket","code":"FZ9858-410","price":990,"colour":"Navy"},{"id":"hoodie","name":"Hoodie","code":"IO9035-010","price":880,"colour":"Black"}];
+function buildSupplierRows(orders, catalog, sizes, batchLabel = '') {
+  const groups = new Map();
+  for (const product of catalog) for (const size of sizes) {
+    groups.set(product.id + '|' + size, { product, size, quantity: 0, initials: new Map(), withoutInitials: 0 });
+  }
+  for (const order of orders) for (const line of order.items) {
+    const group = groups.get(line.productId + '|' + line.size);
+    if (!group || (line.code && line.code !== group.product.code)) {
+      throw new Error('An item or size does not match the supplier catalogue. Please contact the club admin.');
+    }
+    if (!Number.isSafeInteger(line.quantity) || line.quantity < 1) {
+      throw new Error('An order quantity is invalid. Please refresh the order list.');
+    }
+    const initials = String(line.initials || '').normalize('NFC').trim();
+    group.quantity += line.quantity;
+    if (initials) group.initials.set(initials, (group.initials.get(initials) || 0) + line.quantity);
+    else group.withoutInitials += line.quantity;
+  }
+  const rows = [
+    ['PARTISAN PRAGUE | SUPPLIER ORDER', '', '', '', '', ''],
+    ['Product / size / quantity / initials printed / quantity without initials.', '', '', '', '', ''],
+    [batchLabel, '', '', '', '', ''],
+    ['PRODUCT', 'NIKE CODE', 'SIZE', 'TOTAL QTY', 'INITIALS TO PRINT', 'NO INITIALS'],
+  ];
+  let total = 0, withoutInitials = 0;
+  for (const group of groups.values()) {
+    const initials = [...group.initials].map(([text, quantity]) => text + (quantity > 1 ? ' x' + quantity : '')).join(', ');
+    rows.push([group.product.name.toUpperCase(), group.product.code, group.size, group.quantity, initials, group.withoutInitials]);
+    total += group.quantity;
+    withoutInitials += group.withoutInitials;
+  }
+  rows.push(['', '', '', '', '', ''], ['TOTAL ITEMS', '', '', total, '', withoutInitials]);
+  return rows;
+}
 const SIZES = ['XS','S','M','L','XL','2XL','3XL'];
 const API_ORIGIN = 'https://partisan-merchandise.funnyether4.chatgpt.site';
 const SERVICE_ORIGIN = location.hostname === 'hugo-crispim.github.io' ? API_ORIGIN : location.origin;
@@ -207,9 +241,12 @@ async function cancelOrder(){
 }
 function csvCell(value){let s=String(value??'');if(/^[\s\u0000-\u001f]*[=+\-@]/.test(s))s="'"+s;return '"'+s.replaceAll('"','""')+'"'}
 function exportCsv(){
- const rows=[['Order reference','Name','Item','Nike code','Size','Quantity','Initials','Unit price CZK','Initials per item CZK','Line total CZK','Order total CZK','Saved / imported at','Source','Original sheet row','Name missing','Batch','Batch status','Batch closed at']];
- orders.forEach(o=>o.items.forEach((l,i)=>rows.push([o.id,o.name,l.name,l.code,l.size,l.quantity,l.initials,l.unitPrice,l.initialsFee,l.total,i===0?o.total:'',o.createdAt,o.source==='sheet'?'Original sheet':'Website',o.sourceRow??'',o.needsName?'Yes':'No',selectedBatch?.title||'',selectedBatch?.closedAt?'Closed':'Open',selectedBatch?.closedAt||''])));
- const blob=new Blob(['\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='partisan-batch-'+(selectedBatch?.number||'current')+'-orders-'+new Date().toISOString().slice(0,10)+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast((selectedBatch?.title||'Batch')+' orders exported');
+ try{
+  const now=new Date(),date=new Intl.DateTimeFormat('sv-SE',{timeZone:'Europe/Prague'}).format(now);
+  const label=(selectedBatch?.title||'Current batch')+' | '+(selectedBatch?.closedAt?'Closed '+batchDate(selectedBatch.closedAt):'Open')+' | Exported '+batchDate(now)+' | Initials xN = N items';
+  const rows=buildSupplierRows(orders,CATALOG,SIZES,label);
+  const blob=new Blob(['\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='partisan-supplier-order-batch-'+(selectedBatch?.number||'current')+'-'+date+'.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast((selectedBatch?.title||'Batch')+' supplier order exported');
+ }catch(error){toast(error.message||'Could not prepare the supplier order. Please refresh and try again.')}
 }
 $('catalog').addEventListener('click',event=>{const button=event.target.closest('[data-product]');if(button)addProduct(button.dataset.product)});
 $('order-lines').addEventListener('input',event=>{
